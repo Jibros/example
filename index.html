@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="anime.min.js"></script>
+
+    <style>
+        * {margin:0;padding:0}
+        :root {
+            font-size: 10px;
+        }
+        @media (max-width: 1279px) {
+            :root {
+                font-size: 0.7818608288vw;
+            }
+        }
+
+        .header {position:relative;padding-bottom:calc(5rem + 2px);}
+        .nav ul li {display:inline-block;}
+        .nav {position:absolute;bottom:0;left:0;right:0;z-index:1;height:5rem;border-top:1px solid black;border-bottom:1px solid black;}
+        .nav.is-fixed {position:fixed;top:0;left:0;right:0;z-index:100;background-color:#fff}
+        .nav ul li a {font-size:1.4rem;color:black}
+        .nav ul li.on a {font-weight:bold;color:red}
+        #digit {
+            width: .5em;
+            overflow: hidden;
+            font: 32px monospace;
+            cursor: pointer;
+        }
+
+        #stripe {
+            display: inline-block
+        }
+
+        #stripe.animate  {
+            transform: translate(-90%);
+            transition: transform 9s steps(9, start) infinite;
+        }
+
+        .area-a {
+            overflow:hidden;
+            width:100%;
+            height:164rem;
+            background-color:magenta
+        }
+        .area-b {
+            overflow:hidden;
+            width:100%;
+            min-height:120rem;
+            background-color:olivedrab
+        }
+
+        .flexbox {
+            display:flex;
+            width:100rem;
+            margin:30rem auto;
+        }
+        .flexbox .flexItem {
+            flex:0 1 auto;
+            width:33.333333%;
+            height:20rem;
+            border:1px solid red;
+            background-color:#fff;
+        }
+
+        /* 애니메이션 */
+        .animate {display: none; animation-duration: 2s; animation-fill-mode: both}
+        .slideInLeft { display: block; animation-name: slideInLeft;}
+        @keyframes slideInLeft {
+            0% {transform: translate3d(-30%, 0, 0);visibility: visible;opacity: 0;}
+            100% {transform: translate(0);opacity: 1;}
+        }
+
+        .slideInRight {display: block;animation-name: slideInRight;}
+        @keyframes slideInRight {
+            0% {transform: translate3d(30%, 0, 0);visibility: visible;opacity: 0;}
+            100% {transform: translate(0);opacity: 1;}
+        }
+
+        .slideInUp {display: block;animation-name: slideInUp;}
+        @keyframes slideInUp {
+            0% {transform: translate3d(0, 30%, 0);visibility: visible;opacity: 0;}
+            100% {transform: translate(0);opacity: 1;}
+        }
+
+        .slideInDown {display: block;animation-name: slideInDown;}
+        @keyframes slideInDown {
+        0% {
+            transform: translate3d(0, -30%, 0);visibility: visible;opacity: 0;}
+            100% {transform: translate(0);opacity: 1;}
+        }
+        .duration__1 { animation-duration: 1s; }
+        .duration__2 { animation-duration: 2s; }
+        .duration__3 { animation-duration: 3s; }
+        .duration__4 { animation-duration: 4s; }
+        .duration__5 { animation-duration: 5s; }
+        .duration__6 { animation-duration: 6s; }
+        .duration__7 { animation-duration: 7s; }
+        .duration__8 { animation-duration: 8s; }
+        .duration__9 { animation-duration: 9s; }
+
+        .delay__1 { animation-delay: .1s; }
+        .delay__2 { animation-delay: .2s; }
+        .delay__3 { animation-delay: .3s; }
+        .delay__4 { animation-delay: .4s; }
+        .delay__5 { animation-delay: .5s; }
+        .delay__6 { animation-delay: .6s; }
+        .delay__7 { animation-delay: .7s; }
+        .delay__8 { animation-delay: .8s; }
+        .delay__9 { animation-delay: .9s; }
+        .delay__10 { animation-delay: 1s; }
+
+        .bounce {width:40px;height:40px;background:darkgreen}
+        /* .bounce {animation: arrowBounce ease-in-out 1.4s infinite alternate;}
+        @-webkit-keyframes arrowBounce {
+            0%, 40%, 60%, 80%, 100% {-webkit-transform:translateY(0);transform:translateY(0);}
+            50%,70% {-webkit-transform:translateY(3px);transform:translateY(3px);}
+        }
+        @keyframes arrowBounce {
+            0%, 40%, 60%, 80%, 100% {-webkit-transform:translateY(0);transform:translateY(0);}
+            50%,70% {-webkit-transform:translateY(3px);transform:translateY(3px);}
+        } */
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="marqee">
+            <p>relative 영역</p>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="#aaaaa" class="js-scroll" data-idx="0">aaaaaaaaaaaa</a></li>
+                <li><a href="#">bbbbbbbbbb</a></li>
+                <li><a href="#">bbbbbbbbbb</a></li>
+                <li><a href="#bbbbb" class="js-scroll" data-idx="1">bbbbbbbbbb</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="area-a section">
+        <div class="flexbox">
+            <div class="flexItem">111</div>
+            <div class="flexItem">222</div>
+            <div class="flexItem">333</div>
+        </div>
+        <div class="flexbox">
+            <!-- slideleft | slideright | slideup | slidedown -->
+            <div class="flexItem animate" data-animate="slideleft" data-duration="1" data-delay="1">111</div>
+            <div class="flexItem animate" data-animate="slidedown" data-duration="1" data-delay="2">222</div>
+            <div class="flexItem animate" data-animate="slideright" data-duration="1" data-delay="3">333</div>
+        </div>
+        <div class="flexbox">
+            <div class="flexItem animate" data-animate="slideleft" data-duration="1">
+                <div class="bounce">1</div>
+                <div class="bounce">2</div>
+            </div>
+            <div class="flexItem animate" data-animate="slidedown" data-duration="1">222</div>
+            <div class="flexItem animate" data-animate="slideright" data-duration="1">333</div>
+        </div>
+    </div>
+    <div class="area-b section">
+        <div class="flexbox">
+            <div class="flexItem animate" data-animate="slideleft" data-duration="1">111</div>
+            <div class="flexItem animate" data-animate="slidedown" data-duration="1">222</div>
+            <div class="flexItem animate" data-animate="slideright" data-duration="1">333</div>
+        </div>
+        <div class="flexbox">
+            <div class="flexItem animate" data-animate="slideleft" data-duration="1">111</div>
+            <div class="flexItem animate" data-animate="slideup" data-duration="1">222</div>
+            <div class="flexItem animate" data-animate="slideright" data-duration="1">333</div>
+        </div>
+        <div class="flexbox">
+            <div class="flexItem animate" data-animate="slideleft" data-duration="1">111</div>
+            <div class="flexItem animate" data-animate="slidedown" data-duration="1">222</div>
+            <div class="flexItem animate" data-animate="slideright" data-duration="1">333</div>
+        </div>
+    </div>
+
+
+    <script>
+        $(function(){
+            navFunc()
+            scrollAnimate()
+
+            var animation = anime({
+                targets: '.bounce',
+                translateY: 10,
+                direction: 'alternate',
+                loop: true,
+                duration: 600,
+                easing: 'easeInOutQuad',
+                autoplay: false
+            });
+            function loop(t) {
+                animation.tick(t);
+                customRAF = requestAnimationFrame(loop);
+            }
+
+            requestAnimationFrame(loop);
+        })
+
+        // nav INIT
+        function navFunc(){
+            let marqee = $(".marqee").outerHeight(),
+                section = $(".section"),
+                sectionTop = [],
+                navEl = $(".nav"),
+                liEl = navEl.find("ul li")
+
+            $.each(section, function(i, val){
+                sectionTop[i] = $(val).offset().top
+            });
+
+            // 스크롤 이동
+            liEl.find(".js-scroll").on("click", function(e){
+                let targetIdx = $(this).data("idx")
+
+                $("html, body").animate({"scrollTop": sectionTop[targetIdx] - navEl.outerHeight()}, 300)
+                e.preventDefault()
+            })
+
+            $(window).on('scroll', function(){
+                let winTop = $(window).scrollTop()
+
+                if (winTop >= marqee) {
+                    navEl.addClass('is-fixed')
+
+                    $.each(section, function(i, val){
+                        if(winTop >= sectionTop[i] - navEl.outerHeight()){
+                            liEl.removeClass("on")
+                            $(".js-scroll").eq(i).closest("li").addClass("on")
+                        }
+                    })
+                } else navEl.removeClass('is-fixed').find("li").removeClass("on")
+            })
+        }
+        
+        function scrollAnimate(){
+            var areaWin = $(window);
+            function isScrolledIntoView(target, check) {
+                var docViewTop = areaWin.scrollTop();
+                var docViewBottom = docViewTop + areaWin.height();
+                var elemTop = target.offset().top;
+                var elemBottom = elemTop + target.height();
+                var animate_nm = target.data('animate');
+
+                if(animate_nm == 'slideup') {
+                    if(check == 'down') {
+                        elemTop = elemTop-target.height();
+                        console.log(elemTop)
+                    }
+                    return (docViewBottom >= elemTop);
+                } else {
+                    return (docViewBottom >= elemTop);
+                }
+                // return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+                // return (docViewBottom >= elemTop);
+            }
+            // 커스텀애니메이트
+            $('.animate').each(function(index, item) {
+                var animate_nm = $(item).data('animate');
+                var animate_duration = "duration__" + $(item).data('duration');
+                var animate_delay = "delay__" + $(item).data('delay');
+                var animate_class = "";
+                switch(animate_nm) {
+                    case "slideleft":
+                        animate_class = 'slideInLeft'
+                        break;
+                    case "slideright":
+                        animate_class = 'slideInRight'
+                        break;
+                    case "slideup":
+                        animate_class = 'slideInUp'
+                        break;
+                    case "slidedown":
+                        animate_class = 'slideInDown'
+                        break;
+                }
+                var position = $(window).scrollTop();
+                $(document).on("scroll", function (event) {
+                    var scroll = $(window).scrollTop();
+                    if(scroll > position) {
+                        var wheelcontrol = 'down'
+                    } else {
+                        var wheelcontrol = 'up'
+                    }
+                    position = scroll;
+                    console.log(wheelcontrol);
+
+                    if (isScrolledIntoView($(item),wheelcontrol)) {
+                        $(item).addClass(animate_class +" "+ (animate_duration ? animate_duration : '') + " " + (animate_delay ? animate_delay : ''));
+                    }
+                    if (!isScrolledIntoView($(item),wheelcontrol)) {
+                        $(item).removeClass(animate_class + " " + (animate_duration ? animate_duration : '') + " " + (animate_delay ? animate_delay : ''));
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
